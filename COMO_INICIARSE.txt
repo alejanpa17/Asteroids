@@ -1,0 +1,14 @@
+Te mueves a un directorio donde quieres que se guarden todas las cosas
+
+git clone https://github.com/alejanpa17/Asteroids.git
+
+cd Asteroids/
+
+git add README.md
+
+git status: En la rama master
+Tu rama está actualizada con 'origin/master'.
+
+git add ejemplo.cpp
+
+git push
