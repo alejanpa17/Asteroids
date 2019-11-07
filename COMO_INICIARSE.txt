@@ -1,4 +1,15 @@
-Te mueves a un directorio donde quieres que se guarden todas las cosas
+
+
+
+
+/*SI ALGO NO OS FUNCIONA PONERLO EN WHA PARA SOLUCIONARLO*//*v0.1*/
+/*TENGO QUE VER TODAVÍA COMO FUNCIONA LO DE MERGE Y CUANDO HAY CONFLICTOS*/
+
+
+
+
+/*COMO BAJARSE EL REPOSITORIO?*/
+/*Te mueves a un directorio donde quieres que se guarden todas las cosas*/
 
 git clone https://github.com/alejanpa17/Asteroids.git
 
@@ -6,9 +17,38 @@ cd Asteroids/
 
 git add README.md
 
-git status: En la rama master
-Tu rama está actualizada con 'origin/master'.
+git status
 
+/*Al ejecutar el comando de STATUS te debe aparecer el siguiente mensaje:
+En la rama master
+Tu rama está actualizada con 'origin/master'. SIGNIFICA QUE HAS ACABADO!!!*/
+
+
+
+
+/*QUE HACER PARA QUE NO TE PIDA TODO EL RATO LA CONTRASEÑA?*/
+/*La proxima vez que hagas pull o push te pedirá los credenciales, los guardará y ya no te los pedirá más*/
+
+git config --global credential.helper store
+
+
+
+
+/*COMO ACTUALIZO LOS ARCHIVOS DE MI PC?*/
+
+git fetch
+
+git pull
+
+
+
+
+/*COMO SUBO UN ARCHIVO AL REPOSITORIO*/
+
+/*ejemplo.cpp es el archivo que has modificado en tu PC y lo quieres actualizar en el repositorio global*/
 git add ejemplo.cpp
+
+/*Obligatorio poner un comentario breve explicación de lo que has hecho y debe estar entre comillas*/
+git commit -m "Comentario de ejemplo"
 
 git push
