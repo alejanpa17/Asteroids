@@ -18,12 +18,11 @@
 #include <stdlib.h> /*Libreria para manejo de archivos del sistema*/
 
 /*Clases a incluir*/
-#include "asteroid.cpp"
-#include "planet.cpp"
+#include "object.cpp"
 #include "functions.cpp"
 
 /*Constantes*/
-#define GRAVITY 6.674e - 5;
+#define GRAVITY 6.674*pow(10,-5);
 #define T 0.1;
 #define DMIN 5.0;
 #define WIDHT 200;
@@ -39,7 +38,7 @@
 
 using namespace std;
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]) { /*ALEJAN*/
 
         /*Variables que son generadas aleatoriamente*/
         int num_planets;
@@ -48,8 +47,6 @@ int main(int argc, char const *argv[]) {
         int iterations;
 
         /*Objetos del grid*/
-        asteroid asteroids[num_asteroids];
-        planet planets[num_planets];
 
 
         return 0;

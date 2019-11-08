@@ -1,89 +1,79 @@
 
-#include "asteroid.cpp"
-#include "planet.cpp"
+
+/*Librerias*/
+#include <math.h> /*Libreria para operaciones matematicas*/
 
 
-
-/*Calcula la distancia entre dos elementos*/
-double dist(double asteroid_xa, double asteroid_ya, double asteroid_xb, double asteroid_yb){
-
-        return 0;
-
-}
+/*Clase de los cuerpos celestiales*/
+#include "object.cpp"
 
 
-/*Calculo de incidencia*/
-double angle(double asteroid_xa, double asteroid_ya, double asteroid_xb, double asteroid_yb){
+/*Constantes*/
+#define GRAVITY 6.674*pow(10,-5);
+#define T 0.1;
+#define DMIN 5.0;
+#define WIDHT 200;
+#define HEIGHT 200;
+#define M 1000;
+#define SDM 50;
 
-        return 0;
 
-}
+/*COMENTARIOS: si vais a cambiar los atributos que recibe la funcion decidmelo porque
+   lo necesito saber para el MAIN*/
 
-/*Calculo de fuerzas entre dos masas*/
-void forces(double distance, double weight_a, double weight_b, double angle, double gravity_constant){
 
-  return;
-
-}
-
-/*Calcula la aceleracion de un asteroide para un eje*/
-double acceleration( asteroid asteroid_a){
+/*Calcula la distancia entre dos elementos*/ /*LAURA*/
+double dist(object asteroid, object element){
 
         return 0;
 
 }
 
-/*Calcula la velocidad de un asteroide para un eje*/
-double speed(asteroid asteroid_a, double acceleration_a){
+
+/*Calculo de angulo de incidencia, corresponde a "Movimiento Normal" de la memoria, usar función floor...*/ /*ANDRES*/
+double angle(object asteroid, object element){
 
         return 0;
 
 }
 
-/*Actualiza la posicion de un asteroide para un eje*/
-void position(asteroid asteroid_a, double speed_a){
+/*Calculo de fuerzas entre dos masas*/ /*ALEJAN*/
+void forces(double distance, object asteroid, object element, double angle, double gravity_constant){
 
         return;
 
 }
 
-/*Movimiento de los asteroides*/
-void move (){
+/*Calcula la aceleracion de un asteroide para un eje,
+debe de valer para cualquier eje y sumar la force que ya tiene el asteroide mas la que calculemos*/ /*ALICIA*/
+double acceleration(double weight, double force){
 
-        int example = 0;
-        asteroid as;
-        example++;
-        /*Calcula la distancia entre dos elementos*/
-              example = dist(0,0,0,0);
-        /*Calculo de fuerzas*/
-              /*Calculo del angulo*/
-              example =  angle(0,0,0,0);
-              /*Calculo de fuerzas*/
-              forces(0,0,0,0,0);
-        /*Movimiento de asteroides*/
-              /*Calculo de la Aceleracion*/
-                double x = acceleration(as);
-                double y = acceleration(as);
-
-              /*Calculo de la Velocidad*/
-                x = speed(as, x);
-                y = speed(as, y);
-
-              /*Calculo de la Posicion*/
-                position(as, x);
-                position(as, y);
+        return 0;
 
 }
 
+/*Calcula la velocidad de un asteroide para un eje, debe de valer para ambos ejes a la vez*/ /*ALICIA*/
+void speed(object asteroid, double acceleration_x, double acceleration_y ){
 
-/*Rebote de un asteroide con el borde del grid*/
-void bounce_border (asteroid asteroid_a, int width, int height){
+        return;
+
+}
+
+/*Actualiza la posicion de un asteroide para un eje, debe de valer para ambos ejes a la vez*/ /*ANDRES*/
+void position(object asteroid){
+
+        return;
+
+}
+
+/*Rebote de un asteroide con el borde del grid*/ /*ANDRES*/
+void bounce_border (object asteroid_a, int width, int height){
 
         return;
 }
 
-/*Rebote de un asteroide con otro asteroide*/
-void bounce_asteroids (asteroid asteroid_a, asteroid asteroid_b){
+/*Rebote de un asteroide con otro asteroide*/ /*LAURA*/
+void bounce_asteroids (object asteroid_a, object asteroid_b){
 
         return;
 }
