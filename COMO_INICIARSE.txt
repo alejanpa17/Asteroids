@@ -29,6 +29,9 @@ Tu rama está actualizada con 'origin/master'. SIGNIFICA QUE HAS ACABADO!!!*/
 /*QUE HACER PARA QUE NO TE PIDA TODO EL RATO LA CONTRASEÑA?*/
 /*La proxima vez que hagas pull o push te pedirá los credenciales, los guardará y ya no te los pedirá más*/
 
+
+git config --global user.name "John Doe" /*Entre comillas*/
+git config --global user.email johndoe@example.com
 git config --global credential.helper store
 
 
