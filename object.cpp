@@ -1,6 +1,6 @@
 
 
-struct asteroid {
+struct object {
 
         double position_x;
         double position_y;
