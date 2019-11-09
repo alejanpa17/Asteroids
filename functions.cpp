@@ -41,8 +41,20 @@ double dist(object asteroid, object element){
 
 /*Calculo de angulo de incidencia, corresponde a "Movimiento Normal" de la memoria, usar función floor...*/ /*ANDRES*/
 double angle(object asteroid, object element){
-
-        return 0;
+    
+    double pending = (asteroid.position_y - element.position_y) / (asteroid.position_x - element.position_x);
+    
+    if (pending > 1){
+        pending = 1;
+    }
+    
+    if(pending < -1){
+        pending = -1;
+    }
+    
+    double angle = atan(pending);
+    
+        return angle;
 
 }
 
@@ -101,7 +113,7 @@ void position(object asteroid){
 /*Rebote de un asteroide con el borde del grid*/ /*ANDRES*/
 void bounce_border (object asteroid_a, int width, int height){
     
-    /*prueba*/
+   
 
         return;
 }
