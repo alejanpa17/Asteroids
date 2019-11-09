@@ -120,16 +120,20 @@ void bounce_border (object asteroid_a, int width, int height){
     
     if( asteroid_a.position_x <= 0){
         asteroid_a.position_x = asteroid_a.position_x + 5;
+        asteroid_a.speed_x = asteroid_a.speed_x * (-1);
     }
     if (asteroid_a.position_y <= 0){
         asteroid_a.position_y = asteroid_a.position_y + 5;
+        asteroid_a.speed_y = asteroid_a.speed_y * (-1);
     }
     
     if(asteroid_a.position_x >= WIDHT){
         asteroid_a.position_x = asteroid_a.position_x - 5;
+        asteroid_a.speed_x = asteroid_a.speed_x * (-1);
     }
     if(asteroid_a.position_y >= HEIGHT){
         asteroid_a.position_y = asteroid_a.position_y - 5;
+        asteroid_a.speed_y = asteroid_a.speed_y * (-1);
     }
    
 
