@@ -16,19 +16,14 @@
 #include <math.h> /*Libreria para operaciones matematicas*/
 #include <string> /*Libreria para trabajar con strings*/
 #include <stdlib.h> /*Libreria para manejo de archivos del sistema*/
+#include <random> /*Libreria para generar numeros aleatorios*/
+
 
 /*Clases a incluir*/
 #include "object.cpp"
 #include "functions.cpp"
 
-/*Constantes*/
-#define GRAVITY 6.674*pow(10,-5);
-#define T 0.1;
-#define DMIN 5.0;
-#define WIDHT 200;
-#define HEIGHT 200;
-#define M 1000;
-#define SDM 50;
+
 
 
 /*DUDAS*/
@@ -47,6 +42,10 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
         int iterations;
 
         /*Objetos del grid*/
+        default_random_engine re{seed};
+        uniform_real_distribution<double> xdist{0.0, std::nextafter(WIDHT, std :: numeric_limits<double>::max())};
+        uniform_real_distribution<double> ydist{0.0, std::nextafter(HEIGHT,std :: numeric_limits<double>::max())};
+        normal_distribution<double> mdist{M, SDM};
 
 
         return 0;

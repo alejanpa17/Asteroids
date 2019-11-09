@@ -13,13 +13,13 @@ using namespace std;
 
 
 /*Constantes*/
-#define GRAVITY 6.674*pow(10,-5);
-#define T 0.1;
-#define DMIN 5.0;
-#define WIDHT 200;
-#define HEIGHT 200;
-#define M 1000;
-#define SDM 50;
+const double GRAVITY = 6.674*pow(10,-5);
+const double T = 0.1;
+const double DMIN = 5.0;
+const double WIDHT = 200;
+const double HEIGHT = 200;
+const double M = 1000;
+const double SDM = 50;
 const double PI = 3.14159265;
 
 
