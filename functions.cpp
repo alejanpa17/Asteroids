@@ -24,7 +24,11 @@ const double PI = 3.14159265;
 
 
 /*COMENTARIOS: si vais a cambiar los atributos que recibe la funcion decidmelo porque
-   lo necesito saber para el MAIN*/
+   lo necesito saber para el MAIN
+   Ali: he cambiado los atributos que recibe la función aceleration, no se si está bien hecha,
+        y la funcion speed no se si la he entendido bien pero tambien la he hecho, miradlo a ver
+        que os parece
+   */
 
 
 /*Calcula la distancia entre dos elementos*/ /*LAURA*/
