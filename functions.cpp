@@ -118,6 +118,19 @@ void position(object asteroid){
 /*Rebote de un asteroide con el borde del grid*/ /*ANDRES*/
 void bounce_border (object asteroid_a, int width, int height){
     
+    if( asteroid_a.position_x <= 0){
+        asteroid_a.position_x = asteroid_a.position_x + 5;
+    }
+    if (asteroid_a.position_y <= 0){
+        asteroid_a.position_y = asteroid_a.position_y + 5;
+    }
+    
+    if(asteroid_a.position_x >= WIDHT){
+        asteroid_a.position_x = asteroid_a.position_x - 5;
+    }
+    if(asteroid_a.position_y >= HEIGHT){
+        asteroid_a.position_y = asteroid_a.position_y - 5;
+    }
    
 
         return;
