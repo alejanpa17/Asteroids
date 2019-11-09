@@ -105,6 +105,11 @@ void speed(object asteroid, double acceleration_x, double acceleration_y ){
 
 /*Actualiza la posicion de un asteroide para un eje, debe de valer para ambos ejes a la vez*/ /*ANDRES*/
 void position(object asteroid){
+    
+    asteroid.position_x = asteroid.position_x + asteroid.speed_x * T;
+    asteroid.position_y = asteroid.position_y + asteroid.speed_y * T;
+    
+
 
         return;
 
