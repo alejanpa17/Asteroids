@@ -69,6 +69,8 @@ void position(object asteroid){
 
 /*Rebote de un asteroide con el borde del grid*/ /*ANDRES*/
 void bounce_border (object asteroid_a, int width, int height){
+    
+    /*prueba*/
 
         return;
 }
