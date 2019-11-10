@@ -1,14 +1,6 @@
 
 
-
-struct planet {
-
-        double position_x;
-        double position_y;
-        double weight;
-
-};
-struct asteroid {
+struct object {
 
         double position_x;
         double position_y;
