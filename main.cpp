@@ -83,7 +83,9 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                                 if(j != k) { //Evita que compares un asteroide con sigo mismo
                                         double distance = dist(objects[j], objects[k]);
                                         double angles = angle(objects[j], objects[k]);
-                                        forces(distance,objects[j], objects[k], angles, GRAVITY);
+                                        forces(distance, objects[j], objects[k], angles, GRAVITY);
+          
+                                        }
                                 }
                         }
                 }
@@ -110,7 +112,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 /*FALTA VER QUE PASA SI REBOTAN MAS DE 2*/
                 for (int j = 0; j < num_asteroids; j++) {
                         for (int k = j + 1; k < num_asteroids; k++) {
-
+                        //preguntar por la distancia
                                 bounce_asteroids(objects[j], objects[k]);
                         }
                 }
