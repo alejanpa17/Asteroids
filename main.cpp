@@ -115,6 +115,12 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                         }
                 }
 
+                for (int j = 0; j < num_asteroids; j++) {
+                  objects[j].force_x = 0;
+                  objects[j].force_y = 0;
+
+                }
+
         }
 
 
