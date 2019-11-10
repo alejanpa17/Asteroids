@@ -1,4 +1,3 @@
-
 /*
  *  Programacion Paralela con OpenMP
  *
@@ -27,9 +26,13 @@
 
 
 /*DUDAS*/
-/*UNIFICAMOS ASTEROID Y PLANET ???*/
-/*DAR EL ATRIBUTO DE FUERZAS A ASTEROIDS ???, sería una variable que se actualizaria cada iteracion*/
+/*SE PASA POR PARAMETRO O POR REFERENCIA*/
+/*UNIFICAMOS ASTEROID Y PLANET ???*/ /*Solved*/
+/*DAR EL ATRIBUTO DE FUERZAS A ASTEROIDS ???, sería una variable que se actualizaria cada iteracion*/ /*Solved*/
 
+/*FUNCIONES QUE SE PUEDEN JUNTAR*/
+/*DISTANCE, ANGLE Y FORCES*/
+/*ACCELERATION, SPEED Y POSITION*/
 
 using namespace std;
 

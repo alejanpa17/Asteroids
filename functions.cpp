@@ -59,6 +59,9 @@ double angle(object asteroid, object element){
 /*Calculo de fuerzas entre dos masas*/ /*ALEJAN*/
 void forces(double distance, object asteroid, object element, double angle, double gravity_constant){
 
+
+        asteroid.force_x = gravity_constant*asteroid.weight*element.weight*cos(angle)/pow(distance, 2);
+        asteroid.force_y = gravity_constant*asteroid.weight*element.weight*sin(angle)/pow(distance, 2);
         return;
 
 }
