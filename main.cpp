@@ -36,6 +36,7 @@ using namespace std;
 int main(int argc, char const *argv[]) { /*ALEJAN*/
 
         /*Variables iniciales*/
+        //HAY QUE CAMBIAR ESTO PARA LEER LO QUE SE INTRODUCE EN LA CMD
         int num_planets = 1;
         int num_asteroids = 2;
         int num_objects = num_planets + num_asteroids;
@@ -65,6 +66,8 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                         objects[i].position_y = 0;
                         objects[i].weight = mdist(re)*10;
                 }
+
+                //METEMOS ESTO EN EL IF DE num_asteroids ??
                 objects[i].speed_x = 0;
                 objects[i].speed_y = 0;
                 objects[i].force_x = 0;
@@ -72,11 +75,12 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
         }
 
-
+        //BUCLE DE LAS ITERACIONES PEDIDAS POR EL USUARIO
         for (int i = 0; i < iterations; i++) {
 
 
                 /*CALCULO DE FUERZAS*/
+                //Calcula las fuerzas de un asterio
                 //AHORRAR ITERACIONES AL BUCLE CON EL ANGULO COMPLEMENTARIO???
                 for (int j = 0; j < num_asteroids; j++) {
                         for (int k = 0; k < num_objects; k++) {
@@ -115,9 +119,12 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                         }
                 }
 
+
+                /*Se deben reiniciar las fuerzas porque son diferentes entre cada iteracion,
+                 por ej cambian drásticamente si dos asteroides chocan*/
                 for (int j = 0; j < num_asteroids; j++) {
-                  objects[j].force_x = 0;
-                  objects[j].force_y = 0;
+                        objects[j].force_x = 0;
+                        objects[j].force_y = 0;
 
                 }
 
