@@ -31,8 +31,8 @@ const double PI = 3.14159265;
 
 /*Calcula la distancia entre dos elementos*/ /*LAURA*/
 double dist(object asteroid, object element){
-
-        return 0;
+  double distancia = sqrt(pow(asteroid.position_x - element.position_x, 2) + pow(asteroid.position_y - element.position_y, 2));
+  return distancia;
 
 }
 
@@ -59,6 +59,9 @@ double angle(object asteroid, object element){
 /*Calculo de fuerzas entre dos masas*/ /*ALEJAN*/
 void forces(double distance, object asteroid, object element, double angle, double gravity_constant){
 
+
+        asteroid.force_x += gravity_constant*asteroid.weight*element.weight*cos(angle)/pow(distance, 2);
+        asteroid.force_y += gravity_constant*asteroid.weight*element.weight*sin(angle)/pow(distance, 2);
         return;
 
 }
@@ -122,6 +125,12 @@ void bounce_border (object asteroid_a, int width, int height, int dmin){
 
 /*Rebote de un asteroide con otro asteroide*/ /*LAURA*/
 void bounce_asteroids (object asteroid_a, object asteroid_b){
-
-        return;
+  double aux_x, aux_y;
+  aux_x = asteroid_a.position_x;
+  aux_y = asteroid_a.position_y;
+  asteroid_a.position_x = asteroid_b.position_x;
+  asteroid_a.position_y = asteroid_b.position_y;
+  asteroid_b.position_x = aux_x;
+  asteroid_b.position_y = aux_y;
+  return;
 }

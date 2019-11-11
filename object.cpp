@@ -11,3 +11,5 @@ struct object {
         double weight;
 
 };
+
+
