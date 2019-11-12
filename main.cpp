@@ -54,7 +54,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
         normal_distribution<double> mdist{M, SDM};
 
 
-        /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/
+        /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/ /*TE COMO EL NEPE PARRRADOOOOOOOOOO*/
         for (int i = 0, j = 0; i < num_objects; i++) {
 
                 if( i < num_asteroids) {
