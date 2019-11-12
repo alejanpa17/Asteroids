@@ -123,7 +123,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
                         double x = acceleration(objects[j].weight, objects[j].force_x);
                         double y = acceleration(objects[j].weight, objects[j].force_y);
-                        speed(objects[j], x, y);
+                        speed(objects[j], x, y, T);
                         position(objects[j], T);
                 }
 
@@ -137,12 +137,12 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
                 /*REBOTE ENTRE PARES DE ASTEROIDES*/
                 /*FALTA VER QUE PASA SI REBOTAN MAS DE 2*/
-                for (int j = 0; j < num_asteroids-1; j++) {
+                /*for (int j = 0; j < num_asteroids-1; j++) {
                         for (int k = j + 1; k < num_asteroids; k++) {
                         //preguntar por la distancia
                                 bounce_asteroids(objects[j], objects[k]);
                         }
-                }
+                }*/
 
 
                 /*Se deben reiniciar las fuerzas porque son diferentes entre cada iteracion,
@@ -152,7 +152,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 for (int j = 0; j < num_asteroids; j++) {
                         objects[j].force_x = 0;
                         objects[j].force_y = 0;
-
+                        std::cout << "Asteroid: "<< j << " Pos x: " << objects[j].position_x << " Pos y:" << objects[j].position_y ;
                 }
 
         }
