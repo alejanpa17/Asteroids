@@ -14,8 +14,11 @@
 #include <iostream> /*Libreria para leer e imprimir datos en la terminal*/
 #include <math.h> /*Libreria para operaciones matematicas*/
 #include <string> /*Libreria para trabajar con strings*/
-#include <stdlib.h> /*Libreria para manejo de archivos del sistema*/
+#include <fstream> /*Libreria para manejo de archivos del sistema*/
 #include <random> /*Libreria para generar numeros aleatorios*/
+#include <chrono> /*Libreria para llevar un timer*/
+#include <iomanip> /*Libreria para ajustar la precision*/
+
 
 
 /*Clases a incluir*/
@@ -26,7 +29,6 @@
 
 
 /*DUDAS*/
-/*SE PASA POR PARAMETRO O POR REFERENCIA*/
 /*UNIFICAMOS ASTEROID Y PLANET ???*/ /*Solved*/
 /*DAR EL ATRIBUTO DE FUERZAS A ASTEROIDS ???, sería una variable que se actualizaria cada iteracion*/ /*Solved*/
 
@@ -35,33 +37,60 @@
 /*ACCELERATION, SPEED Y POSITION*/
 
 using namespace std;
+using namespace std::chrono;
+
 
 int main(int argc, char const *argv[]) { /*ALEJAN*/
 
-        /*Variables iniciales*/
-        //HAY QUE CAMBIAR ESTO PARA LEER LO QUE SE INTRODUCE EN LA CMD
-        int num_planets = 1;
-        int num_asteroids = 1;
-        int num_objects = num_planets + num_asteroids;
-        int seed = 100;
-        int iterations = 3000;
-        object objects[num_asteroids+num_planets];
+        /*CONTADOR DE TIEMO DE EJECUCION DEL PROGRAMA*/
+        using clk = chrono::high_resolution_clock;
+        auto timer_1 = clk :: now();
 
-        /*Necesario para generar coordenadas aleatorias*/
+
+        /*VARIABLES INICIALES*/
+        //Comprobacion de que se han introducido los argumentos pedidos
+        if(argc != 5) {
+                cerr <<"nasteroids-seq: Wrong arguments.\nCorrect use:\nnasteroids-seq num_asteroides num_iteraciones num_planetas semilla\n";
+                return -1;
+        }
+
+        double arg1 = stof(argv[1]);
+        double arg2 = stof(argv[2]);
+        double arg3 = stof(argv[3]);
+        double arg4 = stof(argv[4]);
+        //cout << arg1 << " " << (int)arg1 << " " << arg1 - (int)arg1 << endl;
+
+        //Comprobacion los argumentos cumplen los requisitos del enunciado
+        if( arg1 < 0 || arg2 < 0 || arg3 < 0 || arg4 < 0
+        || arg1 - (int)arg1 != 0 || arg2 - (int)arg2 != 0 || arg3 - (int)arg3 != 0 || arg4 - (int)arg4 != 0) {
+                cerr <<"nasteroids-seq: Wrong arguments.\nCorrect use:\nnasteroids-seq num_asteroides num_iteraciones num_planetas semilla\n";
+                return -1;
+        }
+
+        int num_asteroids = (int)arg1;
+        int iterations = (int)arg2;
+        int num_planets = (int)arg3;
+        int seed = (int)arg4;
+        int num_objects = num_planets + num_asteroids;
+        object objects[num_objects];
+
+        /*Generar coordenadas aleatorias*/
         default_random_engine re{seed};
         uniform_real_distribution<double> xdist{0.0, std::nextafter(WIDHT, std :: numeric_limits<double>::max())};
         uniform_real_distribution<double> ydist{0.0, std::nextafter(HEIGHT,std :: numeric_limits<double>::max())};
         normal_distribution<double> mdist{M, SDM};
 
+        //Generacion del  fichero de configuracion inicial
+        std::ofstream file_init;
+        file_init.open("init_conf.txt");
+        file_init << num_asteroids << " " << iterations << " " << num_planets << " " << seed << "\n";
 
-        /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/ /*TE COMO EL NEPE PARRRADOOOOOOOOOO*/
+        /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/
         for (int i = 0, j = 0; i < num_objects; i++) {
 
                 if( i < num_asteroids) {
-                        objects[i].position_x = 100;
-                        objects[i].position_y = 100;
-                        //objects[i].position_x = xdist(re);
-                        //objects[i].position_y = ydist(re);
+                        objects[i].position_x = xdist(re);
+                        objects[i].position_y = ydist(re);
                         objects[i].weight = mdist(re);
                         objects[i].speed_x = 0;
                         objects[i].speed_y = 0;
@@ -70,33 +99,32 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 }
                 else{ //LA POSICION DE LOS PLANETAS COMO SE DECIDEN??? /*SOLVED*/
 
-                        objects[i].weight = mdist(re)*10000;
+                        objects[i].weight = mdist(re)*10;
 
                         if(j%4 == 0) {
-                                //objects[i].position_x = xdist(re);
-                                objects[i].position_y = 0;
-                                objects[i].position_x = 0;
-
-                        }
-                        if(j%4 == 1) {
                                 objects[i].position_x = 0;
                                 objects[i].position_y = ydist(re);
-
+                        }
+                        if(j%4 == 1) {
+                                objects[i].position_x = xdist(re);
+                                objects[i].position_y = 0;
                         }
                         if(j%4 == 2) {
+                                objects[i].position_x = WIDHT;
+                                objects[i].position_y = ydist(re);
+                        }
+                        if(j%4 == 3) {
                                 objects[i].position_x = xdist(re);
                                 objects[i].position_y = HEIGHT;
                         }
-                        if(j%4 == 3) {
-                                objects[i].position_x = WIDHT;
-                                objects[i].position_y = ydist(re);
-
-                        }
 
                         j++;
-
                 }
+                file_init << fixed << setprecision(3) << objects[i].position_x << " " << objects[i].position_y << " "<< objects[i].weight << "\n";
         }
+
+        file_init.close();
+
 
         //BUCLE DE LAS ITERACIONES PEDIDAS POR EL USUARIO
         for (int i = 0; i < iterations; i++) {
@@ -108,40 +136,31 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 for (int j = 0; j < num_asteroids; j++) {
                         for (int k = j + 1; k < num_objects; k++) {
 
-                                //double distance = dist(objects[j], objects[k]);
                                 double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
-                                //std::cout << "Distancia: "<< distance << '\n';
-
-                                //double angles = angle(objects[j], objects[k]);
                                 double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
 
-                                if (pending > 1){
-                                    pending = 1;
+                                /*CORRECCION DE LA PENDIENTE*/
+                                if (pending > 1) {
+                                        pending = 1;
                                 }
 
-                                if(pending < -1){
-                                    pending = -1;
+                                if(pending < -1) {
+                                        pending = -1;
                                 }
 
                                 double angles = atan(pending);
-                                //std::cout << "Angulo: "<< angles << '\n';
 
-                                /*CORRECCION DEL ANGULO*/
+                                /*CORRECCION DEL ANGULO, LO COMENTO EN UN VIDEO DE WA*/
                                 if(objects[j].position_x > objects[k].position_x) {
                                         angles += PI;
                                 }
-                                //forces(distance, objects[j], objects[k], angles, GRAVITY);
                                 objects[j].force_x += GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
                                 objects[j].force_y += GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
 
-
                                 if (k < num_asteroids) {
-                                        //forces(distance, objects[k], objects[j], angles + PI, GRAVITY);
                                         objects[k].force_x += -objects[j].force_x;
                                         objects[k].force_y += -objects[j].force_y;
-
                                 }
-
                         }
                 }
 
@@ -149,25 +168,27 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 /*MOVIMIENTO DE ASTEROIDES*/
                 for (int j = 0; j < num_asteroids; j++) {
 
-                        //double x = acceleration(objects[j].weight, objects[j].force_x);
-                        //double y = acceleration(objects[j].weight, objects[j].force_y);
+                        //ACELERACION
                         double x= objects[j].force_x/objects[j].weight;
                         double y= objects[j].force_y/objects[j].weight;
 
-                        //speed(objects[j], x, y, T);
+                        //VELOCIDAD
                         objects[j].speed_x += x * T;
                         objects[j].speed_y += y * T;
 
-                        //position(objects[j], T);
+                        //POSICION
                         objects[j].position_x += objects[j].speed_x * T;
                         objects[j].position_y += objects[j].speed_y * T;
 
-
+                        /*REINICIA EL VALOR DE LAS FUERZAS*/
+                        objects[j].force_x = 0;
+                        objects[j].force_y = 0;
                 }
 
 
                 /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
                 for (int j = 0; j < num_asteroids; j++) {
+                        /*Creo que se podria meter lo que tiene este for en el anterior*/
 
                         //bounce_border(objects[j], WIDHT, HEIGHT, DMIN);
                         if( objects[j].position_x <= 0) {
@@ -200,20 +221,8 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                    }*/
 
 
-                /*Se deben reiniciar las fuerzas porque son diferentes entre cada iteracion,
-                   por ej cambian drásticamente si dos asteroides chocan*/
-
-                /*CREO QUE NOS PODRIAMOS AHORRAR ITERACIONES METIENDO ESTO EN ALGUN FOR DE ANTES*/
-                /*REINICIA EL VALOR DE LAS FUERZAS*/
-                for (int j = 0; j < num_objects; j++) {
-                        objects[j].force_x = 0;
-                        objects[j].force_y = 0;
-
-                }
-
-
-                /*IMPRESIONES PARA PRUEBAS*/
-                for (int j = 0; j < num_objects; j++) {
+                /*IMPRESIONES PARA PRUEBAS*//*BORRAR*/
+                /*for (int j = 0; j < num_objects; j++) {
 
                         if (j < num_asteroids) {
                                 std::cout << "Asteroid: "<< j << " Pos x: " << objects[j].position_x << " Pos y:" << objects[j].position_y << "\n";
@@ -221,10 +230,27 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                         else{
                                 std::cout << "Planet: "<< j << " Pos x: " << objects[j].position_x << " Pos y:" << objects[j].position_y << "\n";
                         }
-                }
+                   }*/
 
         }
 
+        /*RESULTADOS*/
+        ofstream file_out;
+        file_out.open("out.txt");
+
+        for(int i=0; i<num_asteroids; i++) {
+                file_out << fixed << setprecision(3) << objects[i].position_x << " ";
+                file_out << fixed << setprecision(3) << objects[i].position_y << " ";
+                file_out << fixed << setprecision(3) << objects[i].speed_x << " ";
+                file_out << fixed << setprecision(3) << objects[i].speed_y << " ";
+                file_out << fixed << setprecision(3) << objects[i].weight << "\n";
+        }
+
+        file_out.close();
+
+        auto timer_2 = clk :: now();
+        auto final_timer = duration_cast<microseconds>(timer_2-timer_1);
+        std::cout << final_timer.count() <<  "\n";
 
         return 0;
 }
