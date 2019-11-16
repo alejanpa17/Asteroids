@@ -213,12 +213,17 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
                 /*REBOTE ENTRE PARES DE ASTEROIDES*/
                 /*FALTA VER QUE PASA SI REBOTAN MAS DE 2, POR ESO ESTA COMENTADO*/
-                /*for (int j = 0; j < num_asteroids-1; j++) {
+                for (int j = 0; j < num_asteroids; j++) {
                         for (int k = j + 1; k < num_asteroids; k++) {
                         //preguntar por la distancia
-                                bounce_asteroids(objects[j], objects[k]);
+                        double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
+
+                        if(distance <= DMIN){
+                          
                         }
-                   }*/
+
+                        }
+                   }
 
 
                 /*IMPRESIONES PARA PRUEBAS*//*BORRAR*/
