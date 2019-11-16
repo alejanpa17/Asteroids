@@ -150,10 +150,10 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
                                 double angles = atan(pending);
 
-                                /*CORRECCION DEL ANGULO, LO COMENTO EN UN VIDEO DE WA*/
-                                if(objects[j].position_x > objects[k].position_x) {
+                                /*CORRECCION DEL ANGULO*/
+                                /*if(objects[j].position_x > objects[k].position_x) {
                                         angles += PI;
-                                }
+                                }*/
                                 objects[j].force_x += GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
                                 objects[j].force_y += GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
 
