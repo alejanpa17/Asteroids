@@ -62,7 +62,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
         //Comprobacion los argumentos cumplen los requisitos del enunciado
         if( arg1 < 0 || arg2 < 0 || arg3 < 0 || arg4 < 0
-        || arg1 - (int)arg1 != 0 || arg2 - (int)arg2 != 0 || arg3 - (int)arg3 != 0 || arg4 - (int)arg4 != 0) {
+            || arg1 - (int)arg1 != 0 || arg2 - (int)arg2 != 0 || arg3 - (int)arg3 != 0 || arg4 - (int)arg4 != 0) {
                 cerr <<"nasteroids-seq: Wrong arguments.\nCorrect use:\nnasteroids-seq num_asteroides num_iteraciones num_planetas semilla\n";
                 return -1;
         }
@@ -212,18 +212,42 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
 
 
                 /*REBOTE ENTRE PARES DE ASTEROIDES*/
-                /*FALTA VER QUE PASA SI REBOTAN MAS DE 2, POR ESO ESTA COMENTADO*/
-                for (int j = 0; j < num_asteroids; j++) {
-                        for (int k = j + 1; k < num_asteroids; k++) {
-                        //preguntar por la distancia
-                        double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
+                int taken = 0;
+                int last = 0;
+                double first_auxSpeedX;
+                double first_auxSpeedY;
+                int loop1 = 0;
+                int loop2 = 1;
 
-                        if(distance <= DMIN){
-                          
-                        }
+                while (loop1 < num_asteroids) {
+                        while (loop2 < num_asteroids) {
 
+                                double distance = sqrt(pow(objects[loop1].position_x - objects[loop2].position_x, 2) + pow(objects[loop1].position_y - objects[loop2].position_y, 2));
+
+                                //RESERVO EL PRIMER ASTEROIDE
+                                if(distance <= DMIN && taken == 0) {
+                                        taken = 1;
+                                        first_auxSpeedX = objects[loop1].speed_x;
+                                        first_auxSpeedY = objects[loop1].speed_y;
+                                }
+
+                                //CAMBIO LA VELOCIDAD DE UN ASTEROIDE
+                                if (distance <= DMIN) {
+                                        objects[loop1].speed_x = objects[loop2].speed_x;
+                                        objects[loop1].speed_y = objects[loop2].speed_y;
+                                        last = loop2;
+                                        loop2 = num_asteroids;
+                                }
+                                loop2++;
                         }
-                   }
+                        loop1++;
+                        loop2=loop1 + 1;
+                }
+                //EL ULTIMO ASTEROIDE RECIBE LA VELOCIDAD DEL PRIMER ASTEROIDE
+                if(taken == 1) {
+                        objects[last].speed_x = first_auxSpeedX;
+                        objects[last].speed_y = first_auxSpeedY;
+                }
 
 
                 /*IMPRESIONES PARA PRUEBAS*//*BORRAR*/
