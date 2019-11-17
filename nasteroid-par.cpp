@@ -134,6 +134,12 @@ int main(int argc, char const *argv[]) {
 
         //BUCLE DE LAS ITERACIONES PEDIDAS POR EL USUARIO
         for (int i = 0; i < iterations; i++) {
+
+
+            #pragma omp parallel
+		{   
+
+            #pragma omp for
             for (int j = 0; j < num_asteroids; j++) {
                 for (int k = j + 1; k < num_objects; k++) {
 
@@ -169,7 +175,10 @@ int main(int argc, char const *argv[]) {
                       }
                   }
               }
+            }
+
           }
+
 
           /*MOVIMIENTO DE ASTEROIDES*/
           for (int j = 0; j < num_asteroids; j++) {
@@ -193,6 +202,11 @@ int main(int argc, char const *argv[]) {
 
           /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
           //Si el asteroide rebota con un eje modificamos su posición y la velocidad cambia de signo
+          
+
+          
+          #pragma omp parallel {
+              #pragma omp for
           for (int j = 0; j < num_asteroids; j++) {
               if( objects[j].position_x <= 0) {
                       objects[j].position_x = DMIN;
@@ -212,6 +226,8 @@ int main(int argc, char const *argv[]) {
                       objects[j].speed_y = objects[j].speed_y * (-1);
               }
           }
+
+        }
 
 
           /*REBOTE ENTRE PARES DE ASTEROIDES*/
