@@ -136,30 +136,34 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 for (int j = 0; j < num_asteroids; j++) {
                         for (int k = j + 1; k < num_objects; k++) {
 
+                                /*CALCULO DE LA DISTANCIA*/
                                 double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
-                                double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
 
-                                /*CORRECCION DE LA PENDIENTE*/
-                                if (pending > 1) {
-                                        pending = 1;
-                                }
+                                if (distance > 5) {
+                                        double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
 
-                                if(pending < -1) {
-                                        pending = -1;
-                                }
+                                        /*CORRECCION DE LA PENDIENTE*/
+                                        if (pending > 1) {
+                                                pending = 1;
+                                        }
 
-                                double angles = atan(pending);
+                                        if(pending < -1) {
+                                                pending = -1;
+                                        }
 
-                                /*CORRECCION DEL ANGULO*/
-                                /*if(objects[j].position_x > objects[k].position_x) {
-                                        angles += PI;
-                                }*/
-                                objects[j].force_x += GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
-                                objects[j].force_y += GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
+                                        double angles = atan(pending);
 
-                                if (k < num_asteroids) {
-                                        objects[k].force_x += -objects[j].force_x;
-                                        objects[k].force_y += -objects[j].force_y;
+                                        /*CALCULO DE FUERZAS*/
+                                        double force_x = GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
+                                        double force_y = GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
+
+                                        objects[j].force_x += force_x;
+                                        objects[j].force_y += force_y;
+
+                                        if (k < num_asteroids) {
+                                                objects[k].force_x += -force_x;
+                                                objects[k].force_y += -force_y;
+                                        }
                                 }
                         }
                 }
