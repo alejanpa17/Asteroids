@@ -99,8 +99,6 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                 }
                 else{ //LA POSICION DE LOS PLANETAS COMO SE DECIDEN??? /*SOLVED*/
 
-                        objects[i].weight = mdist(re)*10;
-
                         if(j%4 == 0) {
                                 objects[i].position_x = 0;
                                 objects[i].position_y = ydist(re);
@@ -118,6 +116,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                                 objects[i].position_y = HEIGHT;
                         }
 
+                        objects[i].weight = mdist(re)*10;
                         j++;
                 }
                 file_init << fixed << setprecision(3) << objects[i].position_x << " " << objects[i].position_y << " "<< objects[i].weight << "\n";
@@ -139,7 +138,7 @@ int main(int argc, char const *argv[]) { /*ALEJAN*/
                                 /*CALCULO DE LA DISTANCIA*/
                                 double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
 
-                                if (distance > 5) {
+                                if (distance > DMIN) {
                                         double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
 
                                         /*CORRECCION DE LA PENDIENTE*/
