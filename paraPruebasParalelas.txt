@@ -1,0 +1,29 @@
+ omp_set_num_threads(1);
+
+ omp_set_num_threads(2);
+
+ omp_set_num_threads(4);
+
+ omp_set_num_threads(8);
+
+ omp_set_num_threads(16);
+
+Sacar tiempo para cada.
+
+
+Para realizar el punto de planificación.
+//En todos los casos chunk es por defecto. Es 1.
+
+#pragma omp for schedule(static)
+
+#pragma omp for schedule(dynamic)
+
+#pragma omp for schedule(guide)
+
+
+
+
+
+
+
+
