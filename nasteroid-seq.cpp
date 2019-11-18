@@ -156,8 +156,13 @@ int main(int argc, char const *argv[]) {
                       double angles = atan(pending);
 
                       /*CALCULO DE FUERZAS ENTRE UN ASTEROIDE J Y UN OBJETO K*/
-                      double force_x = GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
-                      double force_y = GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
+                      double force= GRAVITY*objects[j].weight*objects[k].weight/pow(distance, 2);
+                      if (force > 100){ //Si la fuerza es mayor que 100, se truncará a 100
+                        force = 100;
+                      }
+                      double force_x = force*cos(angles);
+                      double force_y = force*sin(angles);
+
                       //Acumuamos las fuerzas calculadas al asteroide j
                       objects[j].force_x += force_x;
                       objects[j].force_y += force_y;

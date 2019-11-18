@@ -140,7 +140,7 @@ int main(int argc, char const *argv[]) {
             #pragma omp parallel
             {
 
-            
+
             #pragma omp for
             for (int j = 0; j < num_asteroids; j++) {
                 for (int k = j + 1; k < num_objects; k++) {
@@ -164,8 +164,13 @@ int main(int argc, char const *argv[]) {
                       double angles = atan(pending);
 
                       /*CALCULO DE FUERZAS ENTRE UN ASTEROIDE J Y UN OBJETO K*/
-                      double force_x = GRAVITY*objects[j].weight*objects[k].weight*cos(angles)/pow(distance, 2);
-                      double force_y = GRAVITY*objects[j].weight*objects[k].weight*sin(angles)/pow(distance, 2);
+                      double force= GRAVITY*objects[j].weight*objects[k].weight/pow(distance, 2);
+                      if (force > 100){ //Si la fuerza es mayor que 100, se truncará a 100
+                        force = 100;
+                      }
+                      double force_x = force*cos(angles);
+                      double force_y = force*sin(angles);
+                      
                       //Acumuamos las fuerzas calculadas al asteroide j
                       objects[j].force_x += force_x;
                       objects[j].force_y += force_y;
@@ -207,8 +212,8 @@ int main(int argc, char const *argv[]) {
 
           /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
           //Si el asteroide rebota con un eje modificamos su posición y la velocidad cambia de signo
-         
-         #pragma omp parallel 
+
+         #pragma omp parallel
          {
 
         #pragma omp for
@@ -241,7 +246,7 @@ int main(int argc, char const *argv[]) {
           int loop1 = 0;
           int loop2 = 1;
 
-        
+
           while (loop1 < num_asteroids) {
                   while (loop2 < num_asteroids) {
 
@@ -266,7 +271,7 @@ int main(int argc, char const *argv[]) {
                   loop1++;
                   loop2=loop1 + 1;
           }
-        
+
           //EL ULTIMO ASTEROIDE RECIBE LA VELOCIDAD DEL PRIMER ASTEROIDE
           if(taken == 1) {
                   objects[last].speed_x = first_auxSpeedX;
