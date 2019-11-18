@@ -1,4 +1,9 @@
- omp_set_num_threads(1);
+ 
+
+
+//Poner en todos los casos el mismo número de asteroides, planetas e iteracciones + mismo valor semilla.
+
+omp_set_num_threads(1);
 
  omp_set_num_threads(2);
 
@@ -14,11 +19,20 @@ Sacar tiempo para cada.
 Para realizar el punto de planificación.
 //En todos los casos chunk es por defecto. Es 1.
 
+
+Solo para los casos de 4 y 8 hilos.
+
 #pragma omp for schedule(static)
 
 #pragma omp for schedule(dynamic)
 
 #pragma omp for schedule(guide)
+
+
+
+//aumentar el número de hilos hablar sobre escalabilidad.
+
+//paralelizar usando 1  hilo no tiene mucho sentido y el tiempo aumentará.
 
 
 
