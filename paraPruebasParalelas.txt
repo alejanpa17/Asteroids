@@ -5,9 +5,11 @@
 
 Para calcular el speed up se debe dividir el tiempo original entre el tiempo mejora.
 Siempre hay que poner en todas las pruebas de diferente numero de hilos, el mismo numero de elementos.
+
+
 omp_set_num_threads(1);
 
- omp_set_num_threads(2);
+omp_set_num_threads(2);
 
  omp_set_num_threads(4);
 
