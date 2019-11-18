@@ -19,6 +19,7 @@
 #include <chrono> /*Libreria para llevar un timer*/
 #include <iomanip> /*Libreria para ajustar la precision*/
 #include <vector> /*Libreria para vectores*/
+#include <omp.h>
 
 
 /*Clase a incluir*/
