@@ -91,42 +91,42 @@ int main(int argc, char const *argv[]) {
         /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/
         for (int i = 0, j = 0; i < num_objects; i++) {
 
-          if( i < num_asteroids) { //Colocamos asteroides.
-              objects[i].position_x = xdist(re);
-              objects[i].position_y = ydist(re);
-              objects[i].weight = mdist(re);
-              objects[i].speed_x = 0;
-              objects[i].speed_y = 0;
-              objects[i].force_x = 0;
-              objects[i].force_y = 0;
-          }
-          else{ //Colocamos los planetas en los ejes
-              //Cada vez que se crea un planeta, se coloca en un eje empezando por el eje x=0 y la y=aleatoria
-              //Para avanzar al siguiente eje se hace con el movimiento de las agujas del reloj
-              //Cuando coloca los cuatro ejes, vuelve a empezar. Para ello, utilizamos el módulo 4
-              if(j%4 == 0) {
-                  objects[i].position_x = 0;
-                  objects[i].position_y = ydist(re);
-              }
-              if(j%4 == 1) {
-                  objects[i].position_x = xdist(re);
-                  objects[i].position_y = 0;
-              }
-              if(j%4 == 2) {
-                  objects[i].position_x = WIDHT;
-                  objects[i].position_y = ydist(re);
-              }
-              if(j%4 == 3) {
-                  objects[i].position_x = xdist(re);
-                  objects[i].position_y = HEIGHT;
-              }
+                if( i < num_asteroids) { //Colocamos asteroides.
+                        objects[i].position_x = xdist(re);
+                        objects[i].position_y = ydist(re);
+                        objects[i].weight = mdist(re);
+                        objects[i].speed_x = 0;
+                        objects[i].speed_y = 0;
+                        objects[i].force_x = 0;
+                        objects[i].force_y = 0;
+                }
+                else{ //Colocamos los planetas en los ejes
+                        //Cada vez que se crea un planeta, se coloca en un eje empezando por el eje x=0 y la y=aleatoria
+                        //Para avanzar al siguiente eje se hace con el movimiento de las agujas del reloj
+                        //Cuando coloca los cuatro ejes, vuelve a empezar. Para ello, utilizamos el módulo 4
+                        if(j%4 == 0) {
+                                objects[i].position_x = 0;
+                                objects[i].position_y = ydist(re);
+                        }
+                        if(j%4 == 1) {
+                                objects[i].position_x = xdist(re);
+                                objects[i].position_y = 0;
+                        }
+                        if(j%4 == 2) {
+                                objects[i].position_x = WIDHT;
+                                objects[i].position_y = ydist(re);
+                        }
+                        if(j%4 == 3) {
+                                objects[i].position_x = xdist(re);
+                                objects[i].position_y = HEIGHT;
+                        }
 
-              objects[i].weight = mdist(re)*10;
-              j++; //Avanza de eje
-          }
+                        objects[i].weight = mdist(re)*10;
+                        j++; //Avanza de eje
+                }
 
-          //Fijamos la precisión a 3 decimales e imprimimos el objeto generado
-          file_init << fixed << setprecision(3) << objects[i].position_x << " " << objects[i].position_y << " "<< objects[i].weight << "\n";
+                //Fijamos la precisión a 3 decimales e imprimimos el objeto generado
+                file_init << fixed << setprecision(3) << objects[i].position_x << " " << objects[i].position_y << " "<< objects[i].weight << "\n";
         }
         //Cerramos el fichero
         file_init.close();
@@ -134,151 +134,156 @@ int main(int argc, char const *argv[]) {
 
         //BUCLE DE LAS ITERACIONES PEDIDAS POR EL USUARIO
         for (int i = 0; i < iterations; i++) {
-            for (int j = 0; j < num_asteroids; j++) {
-                for (int k = j + 1; k < num_objects; k++) {
+                for (int j = 0; j < num_asteroids; j++) {
+                        for (int k = j + 1; k < num_objects; k++) {
 
-                  /*CALCULO DE LA DISTANCIA*/
-                  double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
+                                /*CALCULO DE LA DISTANCIA*/
+                                double distance = sqrt(pow(objects[j].position_x - objects[k].position_x, 2) + pow(objects[j].position_y - objects[k].position_y, 2));
 
-                  if (distance > DMIN) {
-                      double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
+                                if (distance > DMIN) {
+                                        double pending = (objects[j].position_y - objects[k].position_y) / (objects[j].position_x - objects[k].position_x);
 
-                      /*Corrección de la pendiente*/
-                      if (pending > 1) {
-                          pending = 1;
-                      }
+                                        /*Corrección de la pendiente*/
+                                        if (pending > 1) {
+                                                pending = 1;
+                                        }
 
-                      if(pending < -1) {
-                          pending = -1;
-                      }
+                                        if(pending < -1) {
+                                                pending = -1;
+                                        }
 
-                      //Ángulo
-                      double angles = atan(pending);
+                                        //Ángulo
+                                        double angles = atan(pending);
 
-                      /*CALCULO DE FUERZAS ENTRE UN ASTEROIDE J Y UN OBJETO K*/
-                      double force= GRAVITY*objects[j].weight*objects[k].weight/pow(distance, 2);
-                      if (force > 100){ //Si la fuerza es mayor que 100, se truncará a 100
-                        force = 100;
-                      }
-                      double force_x = force*cos(angles);
-                      double force_y = force*sin(angles);
+                                        /*CALCULO DE FUERZAS ENTRE UN ASTEROIDE J Y UN OBJETO K*/
+                                        double force= GRAVITY*objects[j].weight*objects[k].weight/pow(distance, 2);
+                                        if (force > 100) { //Si la fuerza es mayor que 100, se truncará a 100
+                                                force = 100;
+                                        }
+                                        double force_x = force*cos(angles);
+                                        double force_y = force*sin(angles);
 
-                      //Acumuamos las fuerzas calculadas al asteroide j
-                      objects[j].force_x += force_x;
-                      objects[j].force_y += force_y;
+                                        //Acumuamos las fuerzas calculadas al asteroide j
+                                        objects[j].force_x += force_x;
+                                        objects[j].force_y += force_y;
 
-                      //El objeto k puede ser asteroide o planeta. Si es asteroide, actualizamos su fuerza con signo negativo
-                      if (k < num_asteroids) {
-                              objects[k].force_x += -force_x;
-                              objects[k].force_y += -force_y;
-                      }
-                  }
-              }
-          }
+                                        //El objeto k puede ser asteroide o planeta. Si es asteroide, actualizamos su fuerza con signo negativo
+                                        if (k < num_asteroids) {
+                                                objects[k].force_x += -force_x;
+                                                objects[k].force_y += -force_y;
+                                        }
+                                }
+                        }
+                }
 
-          /*MOVIMIENTO DE ASTEROIDES*/
-          for (int j = 0; j < num_asteroids; j++) {
-              //ACELERACION
-              double x= objects[j].force_x/objects[j].weight;
-              double y= objects[j].force_y/objects[j].weight;
+                /*MOVIMIENTO DE ASTEROIDES*/
+                for (int j = 0; j < num_asteroids; j++) {
+                        //ACELERACION
+                        double x= objects[j].force_x/objects[j].weight;
+                        double y= objects[j].force_y/objects[j].weight;
 
-              //VELOCIDAD
-              objects[j].speed_x += x * T;
-              objects[j].speed_y += y * T;
+                        //VELOCIDAD
+                        objects[j].speed_x += x * T;
+                        objects[j].speed_y += y * T;
 
-              //POSICION
-              objects[j].position_x += objects[j].speed_x * T;
-              objects[j].position_y += objects[j].speed_y * T;
+                        //POSICION
+                        objects[j].position_x += objects[j].speed_x * T;
+                        objects[j].position_y += objects[j].speed_y * T;
 
-              /*REINICIA EL VALOR DE LAS FUERZAS*/
-              objects[j].force_x = 0;
-              objects[j].force_y = 0;
-          }
-
-
-          /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
-          //Si el asteroide rebota con un eje modificamos su posición y la velocidad cambia de signo
-          for (int j = 0; j < num_asteroids; j++) {
-              if( objects[j].position_x <= 0) {
-                      objects[j].position_x = DMIN;
-                      objects[j].speed_x = objects[j].speed_x * (-1);
-              }
-              if (objects[j].position_y <= 0) {
-                      objects[j].position_y = DMIN;
-                      objects[j].speed_y = objects[j].speed_y * (-1);
-              }
-
-              if(objects[j].position_x >= WIDHT) {
-                      objects[j].position_x = WIDHT - DMIN;
-                      objects[j].speed_x = objects[j].speed_x * (-1);
-              }
-              if(objects[j].position_y >= HEIGHT) {
-                      objects[j].position_y = HEIGHT - DMIN;
-                      objects[j].speed_y = objects[j].speed_y * (-1);
-              }
-          }
+                        /*REINICIA EL VALOR DE LAS FUERZAS*/
+                        objects[j].force_x = 0;
+                        objects[j].force_y = 0;
+                }
 
 
-          /*REBOTE ENTRE PARES DE ASTEROIDES*/
-          int taken = 0;
-          int last = 0;
-          double first_auxSpeedX;
-          double first_auxSpeedY;
-          int loop1 = 0;
-          int loop2 = 1;
+                /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
+                //Si el asteroide rebota con un eje modificamos su posición y la velocidad cambia de signo
+                for (int j = 0; j < num_asteroids; j++) {
+                        if( objects[j].position_x <= 0) {
+                                objects[j].position_x = DMIN;
+                                objects[j].speed_x = objects[j].speed_x * (-1);
+                        }
+                        if (objects[j].position_y <= 0) {
+                                objects[j].position_y = DMIN;
+                                objects[j].speed_y = objects[j].speed_y * (-1);
+                        }
 
-          while (loop1 < num_asteroids) {
-                  while (loop2 < num_asteroids) {
+                        if(objects[j].position_x >= WIDHT) {
+                                objects[j].position_x = WIDHT - DMIN;
+                                objects[j].speed_x = objects[j].speed_x * (-1);
+                        }
+                        if(objects[j].position_y >= HEIGHT) {
+                                objects[j].position_y = HEIGHT - DMIN;
+                                objects[j].speed_y = objects[j].speed_y * (-1);
+                        }
+                }
 
-                          double distance = sqrt(pow(objects[loop1].position_x - objects[loop2].position_x, 2) + pow(objects[loop1].position_y - objects[loop2].position_y, 2));
 
-                          //RESERVO EL PRIMER ASTEROIDE
-                          if(distance <= DMIN && taken == 0) {
-                                  taken = 1;
-                                  first_auxSpeedX = objects[loop1].speed_x;
-                                  first_auxSpeedY = objects[loop1].speed_y;
-                          }
+                /*REBOTE ENTRE PARES DE ASTEROIDES*/
 
-                          //CAMBIO LA VELOCIDAD DE UN ASTEROIDE
-                          if (distance <= DMIN) {
-                                  objects[loop1].speed_x = objects[loop2].speed_x;
-                                  objects[loop1].speed_y = objects[loop2].speed_y;
-                                  last = loop2;
-                                  loop2 = num_asteroids;
-                          }
-                          loop2++;
-                  }
-                  loop1++;
-                  loop2=loop1 + 1;
-          }
-          //EL ULTIMO ASTEROIDE RECIBE LA VELOCIDAD DEL PRIMER ASTEROIDE
-          if(taken == 1) {
-                  objects[last].speed_x = first_auxSpeedX;
-                  objects[last].speed_y = first_auxSpeedY;
-          }
+                int taken = 0;
+                int last = 0;
+                double first_auxSpeedX;
+                double first_auxSpeedY;
+                int loop1 = 0;
+                int loop2 = loop1;
 
-  }//FIN DE LAS ITERACIONES
+                while (loop1 < num_asteroids) {
+                        while (loop2 < num_asteroids) {
 
-  /*RESULTADOS*/
-  ofstream file_out;
-  file_out.open("out.txt");
+                                if (loop1 < loop2) {
+                                        double distance = sqrt(pow(objects[loop1].position_x - objects[loop2].position_x, 2) + pow(objects[loop1].position_y - objects[loop2].position_y, 2));
 
-  //Se guardan las nuevas posiciones, velocidades y masa de los asteroides fijando los decimales a 3
-  for(int i=0; i<num_asteroids; i++) {
-      file_out << fixed << setprecision(3) << objects[i].position_x << " ";
-      file_out << fixed << setprecision(3) << objects[i].position_y << " ";
-      file_out << fixed << setprecision(3) << objects[i].speed_x << " ";
-      file_out << fixed << setprecision(3) << objects[i].speed_y << " ";
-      file_out << fixed << setprecision(3) << objects[i].weight << "\n";
-  }
+                                        //RESERVO EL PRIMER ASTEROIDE
+                                        if(distance <= DMIN && taken == 0) {
+                                                taken = 1;
+                                                first_auxSpeedX = objects[loop1].speed_x;
+                                                first_auxSpeedY = objects[loop1].speed_y;
+                                        }
 
-  //Cerramos el fichero
-  file_out.close();
+                                        //CAMBIO LA VELOCIDAD DE UN ASTEROIDE
+                                        if (distance <= DMIN) {
+                                                objects[loop1].speed_x = objects[loop2].speed_x;
+                                                objects[loop1].speed_y = objects[loop2].speed_y;
+                                                last = loop2;
+                                                loop2 = num_asteroids;
+                                        }
+                                }
+                                loop2++;
+                        }
+                        loop1++;
+                        loop2=loop1 + 1;
+                }
+                //EL ULTIMO ASTEROIDE RECIBE LA VELOCIDAD DEL PRIMER ASTEROIDE
+                if(taken == 1) {
+                        objects[last].speed_x = first_auxSpeedX;
+                        objects[last].speed_y = first_auxSpeedY;
+                }
 
-  auto timer_2 = clk :: now();
-  //Restamos los tiempos para calcular la duración
-  auto final_timer = duration_cast<microseconds>(timer_2-timer_1);
-  std::cout << final_timer.count() <<  "\n";
 
-  return 0;
-  }
+
+        }//FIN DE LAS ITERACIONES
+
+        /*RESULTADOS*/
+        ofstream file_out;
+        file_out.open("out.txt");
+
+        //Se guardan las nuevas posiciones, velocidades y masa de los asteroides fijando los decimales a 3
+        for(int i=0; i<num_asteroids; i++) {
+                file_out << fixed << setprecision(3) << objects[i].position_x << " ";
+                file_out << fixed << setprecision(3) << objects[i].position_y << " ";
+                file_out << fixed << setprecision(3) << objects[i].speed_x << " ";
+                file_out << fixed << setprecision(3) << objects[i].speed_y << " ";
+                file_out << fixed << setprecision(3) << objects[i].weight << "\n";
+        }
+
+        //Cerramos el fichero
+        file_out.close();
+
+        auto timer_2 = clk :: now();
+        //Restamos los tiempos para calcular la duración
+        auto final_timer = duration_cast<microseconds>(timer_2-timer_1);
+        std::cout << final_timer.count() <<  "\n";
+
+        return 0;
+}
