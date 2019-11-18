@@ -180,7 +180,11 @@ int main(int argc, char const *argv[]) {
           }
         }
 
+        #pragma omp parallel
+        {
+
           /*MOVIMIENTO DE ASTEROIDES*/
+          #pragma omp for
           for (int j = 0; j < num_asteroids; j++) {
               //ACELERACION
               double x= objects[j].force_x/objects[j].weight;
@@ -198,6 +202,7 @@ int main(int argc, char const *argv[]) {
               objects[j].force_x = 0;
               objects[j].force_y = 0;
           }
+        }
 
 
           /*REBOTE DE ASTEROIDES CONTRA BORDES DEL GRID*/
@@ -236,10 +241,7 @@ int main(int argc, char const *argv[]) {
           int loop1 = 0;
           int loop2 = 1;
 
-        #pragma omp parallel
-        {
-
-        #pragma omp for
+        
           while (loop1 < num_asteroids) {
                   while (loop2 < num_asteroids) {
 
@@ -264,7 +266,7 @@ int main(int argc, char const *argv[]) {
                   loop1++;
                   loop2=loop1 + 1;
           }
-        }
+        
           //EL ULTIMO ASTEROIDE RECIBE LA VELOCIDAD DEL PRIMER ASTEROIDE
           if(taken == 1) {
                   objects[last].speed_x = first_auxSpeedX;
