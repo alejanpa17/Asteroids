@@ -92,7 +92,8 @@ int main(int argc, char const *argv[]) {
 
 
 
-        
+        /* Fijamos el número de hilos para OPENMP*/
+        omp_set_num_threads(1);
 
         /*CREA LOS ASTEROIDES Y DESPUES LOS PLANETAS*/
         for (int i = 0, j = 0; i < num_objects; i++) {
